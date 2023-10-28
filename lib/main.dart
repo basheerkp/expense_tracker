@@ -7,14 +7,22 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-        colorScheme: ColorScheme.dark(),
+        colorScheme: const ColorScheme.light(),
         useMaterial3: true,
         cardTheme: const CardTheme().copyWith(
             color: Colors.blueGrey,
             margin: const EdgeInsets.only(top: 10, left: 10, right: 10)),
         textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white)),
-    home: Expenses(),
+    darkTheme: ThemeData(
+        colorScheme: const ColorScheme.dark(),
+        useMaterial3: true,
+        cardTheme: const CardTheme().copyWith(
+            color: Colors.blueGrey,
+            margin: const EdgeInsets.only(top: 10, left: 10, right: 10)),
+        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+        iconTheme: const IconThemeData(color: Colors.white)),
+    home: const Expenses(),
     color: Colors.black,
     title: "Expense Tracker",
   ));

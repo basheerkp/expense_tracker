@@ -1,4 +1,5 @@
 import 'package:expense_tracker/widgets/expenses_list/expenses_list.dart';
+import 'package:expense_tracker/widgets/graph/graph.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -9,7 +10,7 @@ part 'package:expense_tracker/data/savedexpenses.dart';
 part 'popupBox.dart';
 
 class Expenses extends StatefulWidget {
-  Expenses({
+  const Expenses({
     super.key,
   });
 
@@ -40,9 +41,13 @@ class _ExpensesState extends State<Expenses> {
               onPressed: () {
                 setState(() {
                   _registeredExpenses.insert(deleted, value);
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 });
               },
-              icon: const Icon(Icons.undo_sharp))
+              icon: const Icon(
+                Icons.undo_sharp,
+                color: Colors.black,
+              ))
         ],
       ),
     ));
@@ -78,6 +83,10 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
+          Graph(expenses: _registeredExpenses),
+          const SizedBox(
+            height: 50,
+          ),
           Expanded(
               child: ExpenseList(_registeredExpenses, deleter: deleteExpense))
         ],

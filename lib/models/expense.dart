@@ -32,3 +32,23 @@ class Expense {
     return formatter.format(date);
   }
 }
+
+class ChartMaker {
+  ChartMaker({required this.category, required this.expenses});
+
+  ChartMaker.forCategory(List<Expense> allExpenses, this.category)
+      : expenses = allExpenses
+            .where((expense) => expense.category == category ? true : false)
+            .toList();
+
+  Categories category;
+  List<Expense> expenses;
+
+  double get totalExpense {
+    double sum = 0;
+    for (final exp in expenses) {
+      sum += exp.amount;
+    }
+    return sum;
+  }
+}
