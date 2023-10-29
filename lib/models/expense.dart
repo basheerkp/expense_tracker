@@ -31,6 +31,15 @@ class Expense {
   String get formattedDate {
     return formatter.format(date);
   }
+
+  Map<String, dynamic> mapExpense() {
+    return {
+      'title': title,
+      'amount': amount,
+      'category': category.toString(),
+      'date': date.toString().substring(0, 10),
+    };
+  }
 }
 
 class ChartMaker {

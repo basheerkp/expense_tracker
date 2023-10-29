@@ -39,11 +39,14 @@ class _GraphState extends State<Graph> {
           BoxDecoration(border: Border.all(color: Colors.blue[200]!, width: 2)),
       margin: const EdgeInsets.only(left: 5),
       height: 220,
-      width: 400,
+      width: 375,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          const SizedBox(
+            width: 50,
+          ),
           for (final i in widget.charts) ...{
             Column(mainAxisAlignment: MainAxisAlignment.end, children: [
               const SizedBox(),
@@ -58,9 +61,13 @@ class _GraphState extends State<Graph> {
                 height: 10,
               )
             ]),
-            const SizedBox(
-              width: 50,
-            )
+            i == widget.charts.last
+                ? const SizedBox(
+                    width: 0,
+                  )
+                : const SizedBox(
+                    width: 50,
+                  )
           }
         ],
       ),

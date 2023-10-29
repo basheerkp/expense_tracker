@@ -14,10 +14,11 @@ class GraphBar extends StatefulWidget {
 class _GraphBar extends State<GraphBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height*150,
+    return AnimatedContainer(
+      height: widget.height * 150,
       width: 30,
       color: Colors.blue[200],
+      duration: const Duration(milliseconds: 700),
     );
   }
 }

@@ -20,7 +20,8 @@ class Expenses extends StatefulWidget {
   }
 }
 
-class _ExpensesState extends State<Expenses> {
+class _ExpensesState extends State<Expenses>
+    with SingleTickerProviderStateMixin {
   void _writeInfo(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
@@ -33,21 +34,19 @@ class _ExpensesState extends State<Expenses> {
       _registeredExpenses.remove(value);
     });
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 1, milliseconds: 400),
       content: Row(
         children: [
           const Text("Expense Deleted"),
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  _registeredExpenses.insert(deleted, value);
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                });
-              },
-              icon: const Icon(
-                Icons.undo_sharp,
-                color: Colors.black,
-              ))
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _registeredExpenses.insert(deleted, value);
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+              });
+            },
+            child: const Text("Undo"),
+          )
         ],
       ),
     ));
@@ -88,7 +87,7 @@ class _ExpensesState extends State<Expenses> {
             height: 50,
           ),
           Expanded(
-              child: ExpenseList(_registeredExpenses, deleter: deleteExpense))
+              child: ExpenseList(_registeredExpenses, deleter: deleteExpense)),
         ],
       ),
     );

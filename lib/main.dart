@@ -10,7 +10,7 @@ void main() {
         colorScheme: const ColorScheme.light(),
         useMaterial3: true,
         cardTheme: const CardTheme().copyWith(
-            color: Colors.blueGrey,
+            color: Colors.blue[200],
             margin: const EdgeInsets.only(top: 10, left: 10, right: 10)),
         textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white)),
@@ -18,9 +18,8 @@ void main() {
         colorScheme: const ColorScheme.dark(),
         useMaterial3: true,
         cardTheme: const CardTheme().copyWith(
-            color: Colors.blueGrey,
+            color: Colors.blue[300],
             margin: const EdgeInsets.only(top: 10, left: 10, right: 10)),
-        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white)),
     home: const Expenses(),
     color: Colors.black,

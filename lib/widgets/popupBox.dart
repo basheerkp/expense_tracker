@@ -87,111 +87,135 @@ class _PopupBoxState extends State<PopupBox> {
 
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
     return ListView.builder(
-        itemCount: 1,
-        itemBuilder: (ctx, index) {
-          return Center(
-            child: AlertDialog(
-              title: const Text("Add new expense"),
-              content: SizedBox(
-                  height: 351,
-                  width: 290,
-                  child: Column(children: [
-                    TextFormField(
-                        onTapOutside: (event) {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        },
-                        controller: _title,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(3)),
-                          hintText: 'Title',
-                        )),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      onTapOutside: (event) {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      },
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      controller: _amount,
-                      decoration: InputDecoration(
-                        prefixText: '\$',
-                        hintText: 'Amount',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(3)),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    DropdownMenu(
-                        menuStyle: const MenuStyle(
-                          alignment: Alignment.bottomLeft,
-                        ),
-                        hintText: "Category",
-                        initialSelection: "default",
-                        dropdownMenuEntries: Categories.values
-                            .map((category) => DropdownMenuEntry(
-                                value: category,
-                                label: category.name.toUpperCase()))
-                            .toList(),
-                        onSelected: (value) {
-                          pickedCategory = value as Categories?;
-                        },
-                        width: 280),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "selected time : ${selectedTime == null ? formatter.format(selectedTime = DateTime.now()) : formatter.format(selectedTime!)}",
-                        ),
-                        IconButton(
-                            onPressed: datePicker,
-                            icon: const Icon(Icons.calendar_month_sharp))
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(9.0),
-                                side: const BorderSide(color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("Cancel")),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(9.0),
-                                side: const BorderSide(color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            infoCheck();
-                          },
-                          child: const Text("Save")),
-                    ])
-                  ])),
+      padding: EdgeInsets.only(top: h / 2 - 350),
+      itemCount: 1,
+      itemBuilder: (ctx, index) {
+        return Center(
+          child: AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+            title: const Text(
+              "Add new expense",
             ),
-          );
-        });
+            content: SizedBox(
+                height: h / 3.2619,
+                width: 350,
+                child: Column(children: [
+                  TextFormField(
+                    onTapOutside: (event) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    controller: _title,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 4,
+                            style: BorderStyle.solid,
+                            color: Colors.black),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      hintText: 'Title',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    onTapOutside: (event) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    controller: _amount,
+                    decoration: InputDecoration(
+                      prefixText: '\$',
+                      hintText: 'Amount',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(3)),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  DropdownMenu(
+                      menuStyle: const MenuStyle(
+                        alignment: Alignment.bottomLeft,
+                      ),
+                      hintText: "Category",
+                      initialSelection: "default",
+                      dropdownMenuEntries: Categories.values
+                          .map((category) => DropdownMenuEntry(
+                              value: category,
+                              label: category.name.toUpperCase()))
+                          .toList(),
+                      onSelected: (value) {
+                        pickedCategory = value as Categories?;
+                      },
+                      width: 350),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        style: const TextStyle(fontSize: 20),
+                        "selected time : ${selectedTime == null ? formatter.format(selectedTime = DateTime.now()) : formatter.format(selectedTime!)}",
+                      ),
+                      IconButton(
+                          onPressed: datePicker,
+                          icon: Icon(
+                            Icons.calendar_month_sharp,
+                            size: h / 40,
+                          ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9.0),
+                              side: const BorderSide(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    const Spacer(),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9.0),
+                              side: const BorderSide(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          infoCheck();
+                        },
+                        child: const Text(
+                          "Save",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ])
+                ])),
+          ),
+        );
+      },
+    );
   }
 }

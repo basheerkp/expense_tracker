@@ -41,6 +41,8 @@ dependencies:
   path_provider: ^2.1.1
   flutter_secure_storage: ^9.0.0
   widgets_to_image: ^0.0.2
+  sqflite: ^2.3.0
+  another_flushbar: ^1.12.30
 
 dev_dependencies:
   flutter_test:
