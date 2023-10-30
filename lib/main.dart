@@ -10,10 +10,9 @@ void main() {
         colorScheme: const ColorScheme.light(),
         useMaterial3: true,
         cardTheme: const CardTheme().copyWith(
-            color: Colors.blue[200],
             margin: const EdgeInsets.only(top: 10, left: 10, right: 10)),
-        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
-        iconTheme: const IconThemeData(color: Colors.white)),
+        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.black)),
+        iconTheme: IconThemeData(color: Colors.blue[300])),
     darkTheme: ThemeData(
         colorScheme: const ColorScheme.dark(),
         useMaterial3: true,

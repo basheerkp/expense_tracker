@@ -7,8 +7,13 @@ class ExpenseList extends StatelessWidget {
   const ExpenseList(
     this.expenses, {
     required this.deleter,
+    required this.w,
+    required this.h,
     super.key,
   });
+
+  final double w;
+  final double h;
 
   final Function(Expense value) deleter;
   final List<Expense> expenses;
@@ -23,7 +28,11 @@ class ExpenseList extends StatelessWidget {
           onDismissed: (direction) {
             deleter(expenses[index]);
           },
-          child: ExpenseItem(expenses[index]),
+          child: ExpenseItem(
+            expenses[index],
+            h: h,
+            w: w,
+          ),
         );
       },
     );

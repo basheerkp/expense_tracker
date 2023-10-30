@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/expense.dart';
-import 'graphbar.dart';
+import 'graph_bar.dart';
 
 class Graph extends StatefulWidget {
   const Graph({super.key, required this.expenses});
@@ -34,43 +34,44 @@ class Graph extends StatefulWidget {
 class _GraphState extends State<Graph> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration:
-          BoxDecoration(border: Border.all(color: Colors.blue[200]!, width: 2)),
-      margin: const EdgeInsets.only(left: 5),
-      height: 220,
-      width: 375,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const SizedBox(
-            width: 50,
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue[200]!, width: 4)),
+          height: 220,
+          width: 378,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const SizedBox(
+                width: 30,
+              ),
+              for (final i in widget.charts) ...{
+                Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  const SizedBox(),
+                  GraphBar(height: i.totalExpense / widget.maxExpense),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Icon(
+                    categoryIcon[i.category],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  )
+                ]),
+                i == widget.charts.last
+                    ? const SizedBox()
+                    : const SizedBox(
+                        width: 50,
+                      )
+              }
+            ],
           ),
-          for (final i in widget.charts) ...{
-            Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              const SizedBox(),
-              GraphBar(height: i.totalExpense / widget.maxExpense),
-              const SizedBox(
-                height: 10,
-              ),
-              Icon(
-                categoryIcon[i.category],
-              ),
-              const SizedBox(
-                height: 10,
-              )
-            ]),
-            i == widget.charts.last
-                ? const SizedBox(
-                    width: 0,
-                  )
-                : const SizedBox(
-                    width: 50,
-                  )
-          }
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

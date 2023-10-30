@@ -1,10 +1,15 @@
 part of 'expenses.dart';
 
-final formatter = DateFormat.yMd();
-
 class PopupBox extends StatefulWidget {
-  PopupBox({super.key, required this.writer});
+  const PopupBox(
+      {super.key,
+      required this.writer,
+      this.rotated = false,
+      required this.height,
+      required this.width});
 
+  final double height, width;
+  final bool rotated;
   final Function(Expense newexpense) writer;
 
   @override
@@ -87,9 +92,9 @@ class _PopupBoxState extends State<PopupBox> {
 
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
     return ListView.builder(
-      padding: EdgeInsets.only(top: h / 2 - 350),
+      padding:
+          EdgeInsets.only(top: widget.rotated ? 0 : widget.height / 2 - 350),
       itemCount: 1,
       itemBuilder: (ctx, index) {
         return Center(
@@ -100,7 +105,6 @@ class _PopupBoxState extends State<PopupBox> {
               "Add new expense",
             ),
             content: SizedBox(
-                height: h / 3.2619,
                 width: 350,
                 child: Column(children: [
                   TextFormField(
@@ -139,7 +143,10 @@ class _PopupBoxState extends State<PopupBox> {
                   const SizedBox(
                     height: 10,
                   ),
-                  DropdownMenu(
+                  LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                    return DropdownMenu(
+                      width: constraints.maxWidth,
                       menuStyle: const MenuStyle(
                         alignment: Alignment.bottomLeft,
                       ),
@@ -151,9 +158,11 @@ class _PopupBoxState extends State<PopupBox> {
                               label: category.name.toUpperCase()))
                           .toList(),
                       onSelected: (value) {
+                        FocusManager.instance.primaryFocus?.unfocus();
                         pickedCategory = value as Categories?;
                       },
-                      width: 350),
+                    );
+                  }),
                   const SizedBox(
                     height: 10,
                   ),
@@ -161,19 +170,28 @@ class _PopupBoxState extends State<PopupBox> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        style: const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 19),
                         "selected time : ${selectedTime == null ? formatter.format(selectedTime = DateTime.now()) : formatter.format(selectedTime!)}",
                       ),
-                      IconButton(
-                          onPressed: datePicker,
-                          icon: Icon(
-                            Icons.calendar_month_sharp,
-                            size: h / 40,
-                          ))
+                      const Spacer(),
+                      Container(
+                        width: widget.rotated
+                            ? widget.width / 10
+                            : widget.height / 15,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: IconButton(
+                            onPressed: datePicker,
+                            icon: Icon(
+                              Icons.calendar_month_sharp,
+                              size: widget.width / 25,
+                            )),
+                      )
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     ElevatedButton(
@@ -182,7 +200,7 @@ class _PopupBoxState extends State<PopupBox> {
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9.0),
-                              side: const BorderSide(color: Colors.grey),
+                              side: const BorderSide(color: Colors.black),
                             ),
                           ),
                         ),
@@ -191,7 +209,7 @@ class _PopupBoxState extends State<PopupBox> {
                         },
                         child: const Text(
                           "Cancel",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         )),
                     const Spacer(),
                     ElevatedButton(
@@ -200,7 +218,7 @@ class _PopupBoxState extends State<PopupBox> {
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9.0),
-                              side: const BorderSide(color: Colors.grey),
+                              side: const BorderSide(color: Colors.black),
                             ),
                           ),
                         ),
@@ -209,7 +227,7 @@ class _PopupBoxState extends State<PopupBox> {
                         },
                         child: const Text(
                           "Save",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         )),
                   ])
                 ])),
