@@ -87,9 +87,12 @@ class _PopupBoxState extends State<PopupBox> {
 
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double j = MediaQuery.of(context).devicePixelRatio;
+    print(width);
     return ListView.builder(
-      padding: EdgeInsets.only(top: h / 2 - 350),
+      padding: EdgeInsets.only(top: height / 2 - 350),
       itemCount: 1,
       itemBuilder: (ctx, index) {
         return Center(
@@ -100,7 +103,7 @@ class _PopupBoxState extends State<PopupBox> {
               "Add new expense",
             ),
             content: SizedBox(
-                height: h / 3.2619,
+
                 width: 350,
                 child: Column(children: [
                   TextFormField(
@@ -168,12 +171,12 @@ class _PopupBoxState extends State<PopupBox> {
                           onPressed: datePicker,
                           icon: Icon(
                             Icons.calendar_month_sharp,
-                            size: h / 40,
+                            size: height / 40,
                           ))
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     ElevatedButton(

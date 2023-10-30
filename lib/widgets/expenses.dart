@@ -56,40 +56,58 @@ class _ExpensesState extends State<Expenses>
 
   @override
   Widget build(BuildContext context) {
+    var rotated =
+        MediaQuery.of(context).size.height > MediaQuery.of(context).size.width
+            ? true
+            : false;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Expense Tracker App"),
-        actions: [
-          Switch.adaptive(
-              activeColor: Colors.white,
-              inactiveThumbColor: Colors.white,
-              value: on,
-              onChanged: (value) {
-                setState(() {
-                  on = value;
-                });
-              }),
-          IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => PopupBox(
-                          writer: _writeInfo,
-                        ));
-              },
-              icon: const Icon(Icons.add_rounded))
-        ],
-      ),
-      body: Column(
-        children: [
-          Graph(expenses: _registeredExpenses),
-          const SizedBox(
-            height: 50,
-          ),
-          Expanded(
-              child: ExpenseList(_registeredExpenses, deleter: deleteExpense)),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: const Text("Expense Tracker App"),
+          actions: [
+            Switch.adaptive(
+                activeColor: Colors.white,
+                inactiveThumbColor: Colors.white,
+                value: on,
+                onChanged: (value) {
+                  setState(() {
+                    on = value;
+                  });
+                }),
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => PopupBox(
+                            writer: _writeInfo,
+                          ));
+                  print(MediaQuery.of(context).size.height);
+                  print(MediaQuery.of(context).devicePixelRatio);
+                },
+                icon: const Icon(Icons.add_rounded))
+          ],
+        ),
+        body: rotated
+            ? Column(
+                children: [
+                  Graph(expenses: _registeredExpenses),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Expanded(
+                      child: ExpenseList(_registeredExpenses,
+                          deleter: deleteExpense)),
+                ],
+              )
+            : Row(
+                children: [
+                  Graph(expenses: _registeredExpenses),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Expanded(
+                      child: ExpenseList(_registeredExpenses,
+                          deleter: deleteExpense)),
+                ],
+              ));
   }
 }
